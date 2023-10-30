@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 import networkx as nx
 from node2vec import Node2Vec
-import torch_geometric
+import torch
+from torch_geometric.data import Data
 from sklearn.model_selection import train_test_split
 
 
@@ -81,31 +82,70 @@ def deepwalk_embedding(G, dimensions=128, walk_length=15, num_walks=300, workers
     return node_embeddings
 
 
-def generate_edges(df, node_embeddings):
+def generate_edges(df):
     # Generate positive & negative examples
     possible_edges = set([(gene, drug) for gene in gene_list(df) for drug in drug_list(df)])
-    edges_positive = [(gene, drug) for (gene, drug) in possible_edges and df.loc(gene, drug)==1 ]
+    edges_positive = [(gene, drug) for (gene, drug) in possible_edges if df.loc[gene, drug] == 1]
     labels_positive = [1] * len(edges_positive)
     edges_negative = list(possible_edges - set(edges_positive))  # Negative examples
     labels_negative = [0] * len(edges_negative)
 
     # Combine positive and negative examples
-    edges = edges_positive + edges_negative
-    labels = labels_positive + labels_negative
-    return edges, labels
+    #edges = edges_positive + edges_negative
+    #labels = labels_positive + labels_negative
+    return edges_positive, edges_negative, labels_positive, labels_negative
 
 
-def edge_features(edge):
+def edge_features(edge, node_embeddings):
     return np.concatenate([node_embeddings[edge[0]], node_embeddings[edge[1]]])
 
 
-def edge_train_test_split(edges, labels, method=['stratified','negative','down'],random_state, test_size):
+def edge_train_test_split(df, method=['stratified','negative','down'],random_state=1, test_size=0.2, negative_ratio=1):
+    edges_positive, edges_negative, labels_positive, labels_negative = generate_edges(df)
+    # Combine positive and negative examples
+    edges = edges_positive + edges_negative
+    labels = labels_positive + labels_negative
     if method=='stratified':
-        edges_train, edges_test, y_train, y_test = train_test_split(edges, labels, test_size=test_size, random_state=random_state, stratify=labels)
-    elif method=='negative':
-        ret = 0
-    elif method=='down':
-        ret = 0
+        edges_train, edges_test, y_train, y_test = train_test_split(edges, labels,
+                                                                    test_size=test_size,
+                                                                    random_state=random_state,
+                                                                    stratify=labels)
+    elif method == 'negative':
+        # Split positive edges
+        edges_train_pos, edges_test_pos, y_train_pos, y_test_pos = train_test_split(edges_positive, labels_positive,
+                                                                                    test_size=test_size,
+                                                                                    random_state=random_state)
+
+        # Randomly sample negative edges based on the negative_ratio
+        num_neg_test = len(edges_test_pos) * negative_ratio
+        edges_test_neg = np.random.choice(edges_negative, size=num_neg_test, replace=False)
+        edges_train_neg = list(set(edges_negative) - set(edges_test_neg))
+
+        y_test_neg = [0] * num_neg_test
+        y_train_neg = [0] * (len(edges_negative) - num_neg_test)
+
+        # Combine positive and negative edges
+        edges_train = edges_train_pos + edges_train_neg
+        y_train = y_train_pos + y_train_neg
+        edges_test = edges_test_pos + edges_test_neg
+        y_test = y_test_pos + y_test_neg
+
+    elif method == 'down':
+        # Adjusted number of samples based on negative_ratio
+        num_samples = min(len(edges_positive), len(edges_negative) // negative_ratio)
+        sampled_pos = np.random.choice(edges_positive, num_samples, replace=False)
+        sampled_neg = np.random.choice(edges_negative, num_samples * negative_ratio, replace=False)
+
+        edges_combined = list(sampled_pos) + list(sampled_neg)
+        labels_combined = [1] * num_samples + [0] * (num_samples * negative_ratio)
+
+        edges_train, edges_test, y_train, y_test = train_test_split(edges_combined, labels_combined,
+                                                                    test_size=test_size,
+                                                                    random_state=random_state)
+
+    else:
+        raise ValueError("Invalid method. Choose from ['stratified', 'negative', 'down']")
+
     return edges_train, edges_test, y_train, y_test
 
 #file_path = "./data/preprocessed_34_10.tsv"
