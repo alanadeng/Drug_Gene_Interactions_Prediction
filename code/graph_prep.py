@@ -1,8 +1,8 @@
 import numpy as np
-import pandas as pd
 import networkx as nx
 from node2vec import Node2Vec
 import torch
+import pandas as pd
 from torch_geometric.data import Data
 from sklearn.model_selection import train_test_split
 
@@ -39,7 +39,7 @@ def nx_drug_gene_bipartite(df):
     for i in range(num_gene):
         for j in range(num_drug):
             if df.iloc[i, j] == 1:
-                G.add_edge(gene_li, drug_li)
+                G.add_edge(gene_li[i], drug_li[j])
     return G
 
     
@@ -118,7 +118,8 @@ def edge_train_test_split(df, method=['stratified','negative','down'],random_sta
 
         # Randomly sample negative edges based on the negative_ratio
         num_neg_test = len(edges_test_pos) * negative_ratio
-        edges_test_neg = np.random.choice(edges_negative, size=num_neg_test, replace=False)
+        random_indices = np.random.choice(len(edges_negative), size=num_neg_test, replace=False)
+        edges_test_neg = [edges_negative[i] for i in random_indices]
         edges_train_neg = list(set(edges_negative) - set(edges_test_neg))
 
         y_test_neg = [0] * num_neg_test
@@ -133,10 +134,13 @@ def edge_train_test_split(df, method=['stratified','negative','down'],random_sta
     elif method == 'down':
         # Adjusted number of samples based on negative_ratio
         num_samples = min(len(edges_positive), len(edges_negative) // negative_ratio)
-        sampled_pos = np.random.choice(edges_positive, num_samples, replace=False)
-        sampled_neg = np.random.choice(edges_negative, num_samples * negative_ratio, replace=False)
+        sampled_pos_indices = np.random.choice(len(edges_positive), num_samples, replace=False)
+        sampled_neg_indices = np.random.choice(len(edges_negative), num_samples * negative_ratio, replace=False)
 
-        edges_combined = list(sampled_pos) + list(sampled_neg)
+        sampled_pos = [edges_positive[i] for i in sampled_pos_indices]
+        sampled_neg = [edges_negative[i] for i in sampled_neg_indices]
+
+        edges_combined = sampled_pos + sampled_neg
         labels_combined = [1] * num_samples + [0] * (num_samples * negative_ratio)
 
         edges_train, edges_test, y_train, y_test = train_test_split(edges_combined, labels_combined,
@@ -144,9 +148,16 @@ def edge_train_test_split(df, method=['stratified','negative','down'],random_sta
                                                                     random_state=random_state)
 
     else:
-        raise ValueError("Invalid method. Choose from ['stratified', 'negative', 'down']")
+            raise ValueError("Invalid method. Choose from ['stratified', 'negative', 'down']")
 
     return edges_train, edges_test, y_train, y_test
 
 #file_path = "./data/preprocessed_34_10.tsv"
 #df = pd.read_csv(file_path, sep='\t', index_col=0)
+
+#data = ['preprocessed_34_10.tsv', 'preprocessed_42_10.tsv']
+
+#file_path = "../data/" + data[0]
+#df = pd.read_csv(file_path, sep='\t', index_col=0)
+#G = nx_drug_gene_bipartite(df)
+#edges_train, edges_test, y_train, y_test = edge_train_test_split(df,'down')
