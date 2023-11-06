@@ -1,5 +1,6 @@
 # Transductive Link Prediction for Drug-Gene Interaction Networks
-**Alana Deng**
+
+**Alana Deng, Kaitlyn Wade, Kyle Chen, Gen Zhou**
 
 ## Background
 ### Bipartite Graph
@@ -27,10 +28,37 @@ The Drug-Gene Interaction Database (DGIdb, www.dgidb.org) is a web resource that
 - This is a relatively large set for limited computational resources. We can use some sampling/preprocessing methods to select some important nodes/edges
 
 ## Methods
-- Sampling: Negative sampling, stratified sampling, etc.
+- Edge Sampling: Negative sampling, stratified sampling, down sampling.
 - Link Prediction: Node Embeddings + Machine Learning Classifiers
     - Node Embedding:
         - Conventional Methods: Node2Vec, DeepWalk
         - GNN-Based Methods: GraphSAGE, GCN, GAT
-    - Machine Learning Models: Logistic regression, random forest, SVM, etc.
-- Evaluation Metrics: Accuracy, precision, recall, F1-score, AUC-ROC
+    - Classification Models: Logistic regression, XGBoost, SVM, Softmax etc.
+- Evaluation Metrics: Accuracy, precision, recall, F1-score, AUC-ROC, AUC-PRC
+
+## Directory Layout
+
+The root directory of the repository is `drug_gene_interaction_prediction`. The folder structure of `drug_gene_interaction_prediction` is as follows
+
+<details><summary>AFT_packages</summary>
+	
+    drug_gene_interaction_prediction/
+    │
+    ├── README.md
+    │
+    ├── data
+    │   ├── interactions.tsv #Raw drug-gene interaction data without any preprocessing
+    │   ├── preprocessed_34_10.tsv #preprocessed interaction matrix (cutoff values: gene 34, drug 10)
+    │   └── preprocessed_42_10.tsv #preprocessed interaction matrix (cutoff values: gene 42, drug 10)
+    │
+    └── code
+        ├── preprocessing.ipynb #data preprocessing, analysis, and visualization
+        ├── graph_prep.py #some functions to prepare graph for training
+        └── pipeline_test.ipynb #test file, the node-embedding -> train-test-split -> classification pipeline
+        
+      
+</details>
+
+## Instruction
+
+---
