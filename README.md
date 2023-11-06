@@ -40,7 +40,7 @@ The Drug-Gene Interaction Database (DGIdb, www.dgidb.org) is a web resource that
 
 The root directory of the repository is `drug_gene_interaction_prediction`. The folder structure of `drug_gene_interaction_prediction` is as follows
 
-<details><summary>AFT_packages</summary>
+<details><summary>drug_gene_interaction_prediction</summary>
 	
     drug_gene_interaction_prediction/
     │
