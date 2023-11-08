@@ -64,7 +64,7 @@ The root directory of the repository is `drug_gene_interaction_prediction`. The 
 
 ## Getting Started
 
-- You can read `preprocessing.ipynb' as it shows the steps for preprocessing and data analysis.
+- You can read `preprocessing.ipynb` as it shows the steps for preprocessing and data analysis.
 - The row indices of preprocessed data are genes, and the column indices are drug types (compounds).
 - To use GNN-based methods for node embedding, you can use PyG (PyTorch Geometric). You should first create a PyG data object before generating node embedding. Here are some useful documentations:
   - https://pytorch-geometric.readthedocs.io/en/latest/
