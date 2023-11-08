@@ -4,7 +4,7 @@
 
 ## Background
 ### Bipartite Graph
-A bipartite graph is defined as a graph whose vertex set can be partitioned into two disjoint sets. Let $G = (V, E)$ be a graph with vertex set \(V\) and edge set $E$. $G$ is bipartite if there exist two disjoint sets $U$ and $W$ such that $V = U \cup W$ and every edge in $E$ connects a vertex in $U$ to a vertex in $W$. A graph $G$ is bipartite if and only if there is no cycle of odd length in $G$.
+A bipartite graph is defined as a graph whose vertex set can be partitioned into two disjoint sets. Let $G = (V, E)$ be a graph with vertex set $V$ and edge set $E$. $G$ is bipartite if there exist two disjoint sets $U$ and $W$ such that $V = U \cup W$ and every edge in $E$ connects a vertex in $U$ to a vertex in $W$. A graph $G$ is bipartite if and only if there is no cycle of odd length in $G$.
 
 The notation $G = (U, W, E)$ is commonly used to denote a bipartite graph with vertex sets $U$ and $W$, and edge set $E$.
 
