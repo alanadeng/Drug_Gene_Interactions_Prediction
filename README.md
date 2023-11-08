@@ -18,7 +18,7 @@ Transductive learning focuses on making predictions for specific, existing data 
 
 In the context of bipartite link prediction, transductive learning seeks to utilize the information inherent in the current structure of the bipartite graph to make predictions for specific, unobserved links.
 
-## Motivation & Challenge
+## Motivation & Challenges
 - Real-world drug-gene interaction data is often incomplete due to experimental constraints. Link prediction addresses this incompleteness by inferring potential interactions based on existing drug-gene interaction data.
 - Drug-gene interaction networks are usually sparse, with only a small portion of possible interactions observed. This sparsity poses challenges for accurately predicting links between drugs and genes.
 - Integration of diverse data sources adds complexity to the prediction task. Link prediction must navigate these heterogeneous sources to generate meaningful insights.
