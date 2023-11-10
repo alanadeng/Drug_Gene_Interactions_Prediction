@@ -28,7 +28,9 @@ The Drug-Gene Interaction Database (DGIdb, www.dgidb.org) is a web resource that
 - This is a relatively large set for limited computational resources. We can use some sampling/preprocessing methods to select some important nodes/edges
 
 ## Methods
-- Edge Sampling: Negative sampling, stratified sampling, down sampling.
+- Negative Edge Sampling:Random undersampling, Euclidean distance-based undersampling
+- Train-Test Split: Stratified train-test split (Ablation)
+- Feature Selection: PCA (Ablation)
 - Link Prediction: Node Embeddings + Machine Learning Classifiers
     - Node Embedding:
         - Conventional Methods: Node2Vec, DeepWalk
@@ -54,7 +56,7 @@ The root directory of the repository is `drug_gene_interaction_prediction`. The 
     ├── code
     │   ├── preprocessing.ipynb #data preprocessing, analysis, and visualization
     │   ├── graph_prep.py #some functions to prepare graph for training
-    │   └── pipeline_test.ipynb #test file, the node-embedding -> train-test-split -> classification pipeline
+    │   └── pipeline_node2vec_lr.ipynb # the node-embedding -> feature selection -> train-test-split -> classification -> evaluation pipeline
     │
     └── res # directory to store results
         
