@@ -28,7 +28,9 @@ The Drug-Gene Interaction Database (DGIdb, www.dgidb.org) is a web resource that
 - This is a relatively large set for limited computational resources. We can use some sampling/preprocessing methods to select some important nodes/edges
 
 ## Methods
-- Edge Sampling: Negative sampling, stratified sampling, down sampling.
+- Negative Edge Sampling:Random undersampling, Euclidean distance-based undersampling
+- Train-Test Split: Stratified train-test split (Ablation)
+- Feature Selection: PCA (Ablation)
 - Link Prediction: Node Embeddings + Machine Learning Classifiers
     - Node Embedding:
         - Conventional Methods: Node2Vec, DeepWalk
