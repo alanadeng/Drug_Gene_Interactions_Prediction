@@ -1,6 +1,6 @@
 # Transductive Link Prediction for Drug-Gene Interaction Networks
 
-**Alana Deng, Kaitlyn Wade, Kyle Chen, Gen Zhou**
+**Alana Deng, Kaitlyn Wade, Lianghong Chen, Gen Zhou**
 
 ## Background
 ### Bipartite Graph
@@ -28,7 +28,7 @@ The Drug-Gene Interaction Database (DGIdb, www.dgidb.org) is a web resource that
 - This is a relatively large set for limited computational resources. We can use some sampling/preprocessing methods to select some important nodes/edges
 
 ## Methods
-- Negative Edge Sampling:Random undersampling, Euclidean distance-based undersampling
+- Negative Edge Sampling: Random undersampling, Euclidean distance-based undersampling
 - Train-Test Split: Stratified train-test split (Ablation)
 - Feature Selection: PCA (Ablation)
 - Link Prediction: Node Embeddings + Machine Learning Classifiers
