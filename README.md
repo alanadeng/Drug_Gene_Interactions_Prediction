@@ -56,7 +56,9 @@ The root directory of the repository is `drug_gene_interaction_prediction`. The 
     ├── code
     │   ├── preprocessing.ipynb #data preprocessing, analysis, and visualization
     │   ├── graph_prep.py #some functions to prepare graph for training
-    │   └── pipeline_node2vec_lr.ipynb # the node-embedding -> feature selection -> train-test-split -> classification -> evaluation pipeline
+    │   ├── pipeline.ipynb # the node-embedding -> feature selection -> train-test-split -> classification -> evaluation pipeline
+    │   ├── plot.ipynb # ROC and PRC curves
+    │   └── analysis.ipynb # result analysis
     │
     └── res # directory to store results
         
