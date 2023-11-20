@@ -1,0 +1,25 @@
+﻿Node Embedding,Predictor,Edge Sampling,PCA,AUROC,AUPRC
+node2vec,lr,random_under,PCA Applied,0.72727872,0.539625434
+node2vec,lr,random_under,PCA Not Applied,0.75307192,0.560740481
+node2vec,lr,distance_under,PCA Applied,0.821724301,0.791603208
+node2vec,lr,distance_under,PCA Not Applied,0.841163951,0.817557637
+node2vec,softmax,random_under,PCA Not Applied,0.6403706,0.514675088
+node2vec,softmax,random_under,PCA Applied,0.707818215,0.52823694
+node2vec,softmax,distance_under,PCA Applied,0.806384001,0.747684356
+node2vec,softmax,distance_under,PCA Not Applied,0.736378622,0.680419516
+node2vec,xgb,random_under,PCA Applied,0.9901034,0.977893656
+node2vec,xgb,random_under,PCA Not Applied,0.9964256,0.991802417
+node2vec,xgb,distance_under,PCA Applied,0.994104,0.98899914
+node2vec,xgb,distance_under,PCA Not Applied,0.99787408,0.995816111
+deepwalk,lr,random_under,PCA Applied,0.71177208,0.503647659
+deepwalk,lr,random_under,PCA Not Applied,0.73808656,0.536447283
+deepwalk,lr,distance_under,PCA Applied,0.82253728,0.786220693
+deepwalk,lr,distance_under,PCA Not Applied,0.83830552,0.809011553
+deepwalk,softmax,random_under,PCA Not Applied,0.6478192,0.503616314
+deepwalk,softmax,random_under,PCA Applied,0.720776777,0.533187671
+deepwalk,softmax,distance_under,PCA Applied,0.819384426,0.774322927
+deepwalk,softmax,distance_under,PCA Not Applied,0.708889573,0.734145643
+deepwalk,xgb,random_under,PCA Applied,0.99468032,0.990142668
+deepwalk,xgb,random_under,PCA Not Applied,0.99609696,0.990529783
+deepwalk,xgb,distance_under,PCA Applied,0.99468032,0.990142668
+deepwalk,xgb,distance_under,PCA Not Applied,0.99732504,0.994800535

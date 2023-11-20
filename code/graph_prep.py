@@ -102,117 +102,8 @@ def edge_features(edge, node_embeddings):
     return np.concatenate([node_embeddings[edge[0]], node_embeddings[edge[1]]])
 
 
-# def edge_train_test_split(df, method=['stratified','negative','down'],random_state=1, test_size=0.2, negative_ratio=1):
-#     edges_positive, edges_negative, labels_positive, labels_negative = generate_edges(df)
-#     # Combine positive and negative examples
-#     edges = edges_positive + edges_negative
-#     labels = labels_positive + labels_negative
-#     if method=='stratified':
-#         edges_train, edges_test, y_train, y_test = train_test_split(edges, labels,
-#                                                                     test_size=test_size,
-#                                                                     random_state=random_state,
-#                                                                     stratify=labels)
-#     elif method == 'negative':
-#         # Split positive edges
-#         edges_train_pos, edges_test_pos, y_train_pos, y_test_pos = train_test_split(edges_positive, labels_positive,
-#                                                                                     test_size=test_size,
-#                                                                                     random_state=random_state)
-#
-#         # Randomly sample negative edges based on the negative_ratio
-#         num_neg_test = len(edges_test_pos) * negative_ratio
-#         random_indices = np.random.choice(len(edges_negative), size=num_neg_test, replace=False)
-#         edges_test_neg = [edges_negative[i] for i in random_indices]
-#         edges_train_neg = list(set(edges_negative) - set(edges_test_neg))
-#
-#         y_test_neg = [0] * num_neg_test
-#         y_train_neg = [0] * (len(edges_negative) - num_neg_test)
-#
-#         # Combine positive and negative edges
-#         edges_train = edges_train_pos + edges_train_neg
-#         y_train = y_train_pos + y_train_neg
-#         edges_test = edges_test_pos + edges_test_neg
-#         y_test = y_test_pos + y_test_neg
-#
-#     elif method == 'down':
-#         # Adjusted number of samples based on negative_ratio
-#         num_samples = min(len(edges_positive), len(edges_negative) // negative_ratio)
-#         sampled_pos_indices = np.random.choice(len(edges_positive), num_samples, replace=False)
-#         sampled_neg_indices = np.random.choice(len(edges_negative), num_samples * negative_ratio, replace=False)
-#
-#         sampled_pos = [edges_positive[i] for i in sampled_pos_indices]
-#         sampled_neg = [edges_negative[i] for i in sampled_neg_indices]
-#
-#         edges_combined = sampled_pos + sampled_neg
-#         labels_combined = [1] * num_samples + [0] * (num_samples * negative_ratio)
-#
-#         edges_train, edges_test, y_train, y_test = train_test_split(edges_combined, labels_combined,
-#                                                                     test_size=test_size,
-#                                                                     random_state=random_state)
-#
-#     else:
-#             raise ValueError("Invalid method. Choose from ['stratified', 'negative', 'down']")
-#
-#     return edges_train, edges_test, y_train, y_test
-#
-# #file_path = "./data/preprocessed_34_10.tsv"
-# #df = pd.read_csv(file_path, sep='\t', index_col=0)
-#
-#
-#
-#     # Combine positive and negative examples
-#     edges = edges_positive + edges_negative
-#     labels = labels_positive + labels_negative
-#     if method=='stratified':
-#         edges_train, edges_test, y_train, y_test = train_test_split(edges, labels,
-#                                                                     test_size=test_size,
-#                                                                     random_state=random_state,
-#                                                                     stratify=labels)
-#     elif method == 'negative':
-#         # Split positive edges
-#         edges_train_pos, edges_test_pos, y_train_pos, y_test_pos = train_test_split(edges_positive, labels_positive,
-#                                                                                     test_size=test_size,
-#                                                                                     random_state=random_state)
-#
-#         # Randomly sample negative edges based on the negative_ratio
-#         num_neg_test = len(edges_test_pos) * negative_ratio
-#         random_indices = np.random.choice(len(edges_negative), size=num_neg_test, replace=False)
-#         edges_test_neg = [edges_negative[i] for i in random_indices]
-#         edges_train_neg = list(set(edges_negative) - set(edges_test_neg))
-#
-#         y_test_neg = [0] * num_neg_test
-#         y_train_neg = [0] * (len(edges_negative) - num_neg_test)
-#
-#         # Combine positive and negative edges
-#         edges_train = edges_train_pos + edges_train_neg
-#         y_train = y_train_pos + y_train_neg
-#         edges_test = edges_test_pos + edges_test_neg
-#         y_test = y_test_pos + y_test_neg
-#
-#     elif method == 'down':
-#         # Adjusted number of samples based on negative_ratio
-#         num_samples = min(len(edges_positive), len(edges_negative) // negative_ratio)
-#         sampled_pos_indices = np.random.choice(len(edges_positive), num_samples, replace=False)
-#         sampled_neg_indices = np.random.choice(len(edges_negative), num_samples * negative_ratio, replace=False)
-#
-#         sampled_pos = [edges_positive[i] for i in sampled_pos_indices]
-#         sampled_neg = [edges_negative[i] for i in sampled_neg_indices]
-#
-#         edges_combined = sampled_pos + sampled_neg
-#         labels_combined = [1] * num_samples + [0] * (num_samples * negative_ratio)
-#
-#         edges_train, edges_test, y_train, y_test = train_test_split(edges_combined, labels_combined,
-#                                                                     test_size=test_size,
-#                                                                     random_state=random_state)
-#
-#     else:
-#          raise ValueError("Invalid method. Choose from ['stratified', 'negative', 'down']")
-#
-#     return edges_train, edges_test, y_train, y_test
-
-
 def negative_sampling(df, node_embeddings, method='random_under', random_state=100, positive_negative_ratio=0.5):
     edges_positive_idx, edges_negative_idx, labels_positive, labels_negative = generate_edges(df)
-
 
     edges_positive = np.array([edge_features(edge, node_embeddings) for edge in edges_positive_idx])
     edges_negative = np.array([edge_features(edge, node_embeddings) for edge in edges_negative_idx])
@@ -263,22 +154,7 @@ def edge_train_test_split(sampled_edges, sampled_labels, test_size=0.2, random_s
 
 
 def perform_pca(edge_features, n_components=150):
-    """
-    Perform PCA to reduce the dimensionality of edge features.
-
-    Parameters:
-    edge_features (array-like): The edge features to be reduced.
-    n_components (int, optional): The number of principal components to keep. Defaults to 150.
-
-    Returns:
-    array-like: Transformed edge features with reduced dimensions.
-    """
     pca = PCA(n_components=n_components)
     reduced_features = pca.fit_transform(edge_features)
     print("PCA Explained Variance: ", sum(pca.explained_variance_ratio_[:n_components]))
     return reduced_features
-
-
-
-
-
