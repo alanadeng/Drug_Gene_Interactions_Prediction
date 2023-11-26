@@ -76,5 +76,5 @@ The root directory of the repository is `drug_gene_interaction_prediction`. The 
 - If you are more familiar with Tensorflow, it looks like Tensorflow also supports GNN. You can see https://blog.tensorflow.org/2021/11/introducing-tensorflow-gnn.html
 
 ## Usage
-../codes/requirements.txt: `pip install -r requirements.txt`.
-../codes/GCN.py: `python GCN.py <.tsv path>`.
+- ../codes/requirements.txt: `pip install -r requirements.txt`.
+- ../codes/GCN.py: `python GCN.py <.tsv path>`.
