@@ -77,5 +77,5 @@ The root directory of the repository is `drug_gene_interaction_prediction`. The 
 
 ## Usage
 
-- ../codes/requirements.txt: `pip install -r requirements.txt`.\n
+- ../codes/requirements.txt: `pip install -r requirements.txt`.
 - ../codes/GCN.py: `python GCN.py <.tsv path>`.
