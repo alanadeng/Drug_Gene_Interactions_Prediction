@@ -7,6 +7,8 @@ from torch_geometric.data import Data
 from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.decomposition import PCA
 from scipy.spatial import distance
+from gensim.models import Word2Vec
+import random
 
 
 def gene_list(df):
