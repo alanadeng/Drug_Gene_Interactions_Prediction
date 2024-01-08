@@ -54,11 +54,10 @@ The root directory of the repository is `drug_gene_interaction_prediction`. The 
     │   └── preprocessed_42_10.tsv #preprocessed interaction matrix (cutoff values: gene 42, drug 10)
     │
     ├── code
-    │   ├── preprocessing.ipynb #data preprocessing, analysis, and visualization
-    │   ├── graph_prep.py #some functions to prepare graph for training
-    │   ├── pipeline.ipynb # the node-embedding -> feature selection -> train-test-split -> classification -> evaluation pipeline
-    │   ├── plot.ipynb # ROC and PRC curves
-    │   └── analysis.ipynb # result analysis
+    │   ├── preprocessing # data preprocessing, analysis, and visualization
+    │   ├── graph_embedding # node representation learning
+    │   ├── classification # classification models
+    │   └── backup # backup scripts
     │
     └── res # directory to store results
         
