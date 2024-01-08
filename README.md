@@ -57,7 +57,7 @@ The root directory of the repository is `drug_gene_interaction_prediction`. The 
     │   ├── preprocessing # data preprocessing, analysis, and visualization
     │   ├── graph_embedding # node representation learning
     │   ├── classification # classification models
-    │   └── backup # backup code
+    │   └── backup # backup scripts
     │
     └── res # directory to store results
         
