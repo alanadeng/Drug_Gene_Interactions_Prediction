@@ -34,7 +34,7 @@ The Drug-Gene Interaction Database (DGIdb, www.dgidb.org) is a web resource that
 - Link Prediction: Node Embeddings + Machine Learning(ML)/Graph Neural Networks (GNN) Classifiers
     - Node Embedding: Node2Vec, DeepWalk, Metapath2Vec, Word2Vec, Struc2Vec, BiNE
     - Classification Models: Conventional ML/GNNs
-	- Conventional Machine Learning Methods: Logistic regression, XGBoost, Naive Bayes
+     	- Conventional Machine Learning Methods: Logistic regression, XGBoost, Naive Bayes
         - GNN-Based Methods: GraphSAGE, GCN, GAT
 - Evaluation Metrics: AUC-ROC, AUC-PRC
 
