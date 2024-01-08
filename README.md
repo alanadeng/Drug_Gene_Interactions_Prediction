@@ -31,9 +31,9 @@ The Drug-Gene Interaction Database (DGIdb, www.dgidb.org) is a web resource that
 - Negative Edge Sampling: Random undersampling, Feature-based undersampling, Topology-based undersampling
 - Train-Test Split: Stratified train-test split
 - Feature Selection: PCA 
-- Link Prediction: Node Embeddings + Machine Learning/Graph Neural Networks (GNN) Classifiers
+- Link Prediction: Node Embeddings + Machine Learning(ML)/Graph Neural Networks (GNN) Classifiers
     - Node Embedding: Node2Vec, DeepWalk, Metapath2Vec, Word2Vec, Struc2Vec, BiNE
-    - Classification Models: 
+    - Classification Models: Conventional ML/GNNs
 	- Conventional Machine Learning Methods: Logistic regression, XGBoost, Naive Bayes
         - GNN-Based Methods: GraphSAGE, GCN, GAT
 - Evaluation Metrics: AUC-ROC, AUC-PRC
